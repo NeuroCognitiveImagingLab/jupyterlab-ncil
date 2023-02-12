@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:2023-01-16
+FROM jupyter/datascience-notebook:2023-02-09
 
 LABEL maintainer="Aaron Newman <https://github.com/aaronjnewman>"
 
