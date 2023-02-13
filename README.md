@@ -6,4 +6,5 @@ It could run as standalone, but is meant to be pulled during deployment of jupyt
 
 To rebuild, run:
 
-`docker-compuse build`
+`docker build -t ncilab/jupyterlab-ncil:23-01-22 .`
+`docker push ncilab/jupyterlab-ncil:23-01-22`
