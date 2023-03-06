@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:2023-02-09
+FROM jupyter/datascience-notebook:2023-03-06
 
 LABEL maintainer="Aaron Newman <https://github.com/aaronjnewman>"
 
@@ -7,7 +7,7 @@ USER root
 # APT packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-	build-essential \
+	# build-essential \
 	bzip2 \
     unzip \
     xz-utils\
@@ -22,11 +22,11 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 #  Install GitHub CLI
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-	&& chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-	&& apt update \
-	&& apt install gh -y
+# RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+# 	&& chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+# 	&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+# 	&& apt update \
+# 	&& apt install gh -y
 
 # Default to UTF-8 file.encoding
 ENV LANG C.UTF-8
@@ -37,8 +37,7 @@ USER $NB_UID
 # Sage conflicts with the latest jupyterhub, thus we must relax the pinning
 RUN mamba install --quiet --yes \
 		-c conda-forge \
-        jupyter_server=2.0.0 \
-		jupyterlab-git \
+		# jupyterlab-git \
 		mne mne-bids autoreject python-picard \
 		pybv mne-qt-browser h5io h5py pymatreader \
 		nodejs nbconvert \
@@ -74,7 +73,7 @@ USER $NB_UID
 
 
 # Add conda env hook
-COPY ./conda-activate.sh /usr/local/bin/before-notebook.d/
-# Portainer no like COPY
-# RUN wget https://github.com/NeuroCognitiveImagingLab/jupyterhub-docker-vm1/blob/master/jupyterlab/conda-activate.sh &&
-#     mv ./conda-activate.sh /usr/local/bin/before-notebook.d/
+# COPY ./conda-activate.sh /usr/local/bin/before-notebook.d/
+# COPY ./rebind-mount.sh /usr/local/bin/before-notebook.d/
+# COPY start.sh /usr/local/bin
+
