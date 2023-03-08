@@ -66,11 +66,10 @@ RUN echo "install.packages(c('glmmLasso','ez', \
     dependencies=TRUE, repos='https://mirror.csclub.uwaterloo.ca/CRAN/')" | R --no-save
 USER $NB_UID
 
-# RUN pip install --upgrade pip && \
+# RUN pip install git+git://github.com/autoreject/autoreject@master && \
 #     fix-permissions "${CONDA_DIR}" && \
 #     fix-permissions "/home/${NB_USER}" && \
 #     ls -la /home
-
 
 # Add conda env hook
 # COPY ./conda-activate.sh /usr/local/bin/before-notebook.d/
