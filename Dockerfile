@@ -18,6 +18,7 @@ RUN apt-get update && \
     gfortran \
     gcc \
     libgmp-dev \
+    sudo \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -74,5 +75,5 @@ USER $NB_UID
 # Add conda env hook
 # COPY ./conda-activate.sh /usr/local/bin/before-notebook.d/
 # COPY ./rebind-mount.sh /usr/local/bin/before-notebook.d/
-# COPY start.sh /usr/local/bin
+COPY start.sh /usr/local/bin
 
