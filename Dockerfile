@@ -18,7 +18,6 @@ RUN apt-get update && \
     gfortran \
     gcc \
     libgmp-dev \
-    sudo \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -75,5 +74,9 @@ USER $NB_UID
 # Add conda env hook
 # COPY ./conda-activate.sh /usr/local/bin/before-notebook.d/
 # COPY ./rebind-mount.sh /usr/local/bin/before-notebook.d/
-COPY start.sh /usr/local/bin
+# COPY start.sh /usr/local/bin
 
+# aaron added 23-06-19:
+# COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
+# from https://discourse.jupyter.org/t/cannot-use-sudo-have-root-access-using-jupyterhub-with-kubernetes/12548/7
+RUN sed -i "s/auth requisite pam_deny.so//g" /etc/pam.d/su
