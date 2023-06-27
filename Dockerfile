@@ -50,7 +50,7 @@ RUN mamba install --quiet --yes \
 		r-sjplot r-sjstats r-ggeffects \
 		r-party r-partykit r-rann \
 		r-reshape2 r-see r-arrow r-ranger \
-		r-stargazer \
+		r-stargazer r-brms \
 		r-languageserver && \
 	mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
