@@ -66,6 +66,10 @@ RUN echo "install.packages(c('glmmLasso','ez', \
     dependencies=TRUE, repos='https://mirror.csclub.uwaterloo.ca/CRAN/')" | R --no-save
 USER $NB_UID
 
+# RUN pip install jupyter-ai && \
+#     fix-permissions "${CONDA_DIR}" && \
+#     fix-permissions "/home/${NB_USER}" &&
+
 # RUN pip install git+git://github.com/autoreject/autoreject@master && \
 #     fix-permissions "${CONDA_DIR}" && \
 #     fix-permissions "/home/${NB_USER}" && \
@@ -76,7 +80,5 @@ USER $NB_UID
 # COPY ./rebind-mount.sh /usr/local/bin/before-notebook.d/
 # COPY start.sh /usr/local/bin
 
-# aaron added 23-06-19:
-# COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
 # from https://discourse.jupyter.org/t/cannot-use-sudo-have-root-access-using-jupyterhub-with-kubernetes/12548/7
-RUN sed -i "s/auth requisite pam_deny.so//g" /etc/pam.d/su
+# RUN sed -i "s/auth requisite pam_deny.so//g" /etc/pam.d/su
