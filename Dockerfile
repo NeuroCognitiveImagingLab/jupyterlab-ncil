@@ -38,15 +38,16 @@ USER $NB_UID
 RUN mamba install --quiet --yes \
 		-c conda-forge \
 		# jupyterlab-git \
-		mne mne-bids autoreject python-picard \
-		pybv mne-qt-browser h5io h5py pymatreader \
+		mne mne-bids mne-nirs autoreject python-picard \
+		pybv mne-qt-browser mayavi h5io h5py pymatreader \
 		nodejs nbconvert \
 		pyarrow  \
 		neurodsp pydicom dicom2nifti nibabel nilearn \
+        r-essentials \
 		r-ggthemes r-lattice r-corrplot \
 		r-lme4 r-mgcv \
 		r-car r-viridis \
-		r-emmeans r-rann \
+		r-emmeans  r-e1071 r-rann \
 		r-sjplot r-sjstats r-ggeffects \
 		r-party r-partykit r-rann \
 		r-reshape2 r-see r-arrow r-ranger \
