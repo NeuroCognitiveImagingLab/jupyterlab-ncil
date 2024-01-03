@@ -41,7 +41,7 @@ RUN mamba install --quiet --yes \
 		mne mne-bids mne-nirs autoreject python-picard \
 		pybv mne-qt-browser mayavi h5io h5py pymatreader \
 		nodejs nbconvert \
-		pyarrow  \
+		pyarrow pingouin \
 		neurodsp pydicom dicom2nifti nibabel nilearn \
         r-essentials \
 		r-ggthemes r-lattice r-corrplot \
