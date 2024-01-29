@@ -19,7 +19,7 @@ RUN apt-get update && \
     gcc \
     libgmp-dev \
     && apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* 
 
 #  Install GitHub CLI
 # RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -39,7 +39,7 @@ RUN mamba install --quiet --yes \
 		-c conda-forge \
 		# jupyterlab-git \
 		mne mne-bids mne-nirs autoreject python-picard \
-		pybv mne-qt-browser mayavi h5io h5py pymatreader \
+		pyxdf pybv mne-qt-browser mayavi h5io h5py pymatreader \
 		nodejs nbconvert \
 		pyarrow pingouin \
 		neurodsp pydicom dicom2nifti nibabel nilearn \
@@ -67,9 +67,9 @@ RUN echo "install.packages(c('glmmLasso','ez', \
     dependencies=TRUE, repos='https://mirror.csclub.uwaterloo.ca/CRAN/')" | R --no-save
 USER $NB_UID
 
-# RUN pip install jupyter-ai && \
-#     fix-permissions "${CONDA_DIR}" && \
-#     fix-permissions "/home/${NB_USER}" &&
+RUN pip install mnelab rev_ai && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}" &&
 
 # RUN pip install git+git://github.com/autoreject/autoreject@master && \
 #     fix-permissions "${CONDA_DIR}" && \
