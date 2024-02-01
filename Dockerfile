@@ -67,7 +67,7 @@ RUN echo "install.packages(c('glmmLasso','ez', \
     dependencies=TRUE, repos='https://mirror.csclub.uwaterloo.ca/CRAN/')" | R --no-save
 USER $NB_UID
 
-RUN pip install mnelab rev_ai && \
+RUN pip install mnelab  && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}" &&
 
