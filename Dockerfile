@@ -1,4 +1,4 @@
-FROM jupyter/datascience-notebook:2023-03-06
+FROM jupyter/datascience-notebook:latest
 
 LABEL maintainer="Aaron Newman <https://github.com/aaronjnewman>"
 
@@ -18,6 +18,7 @@ RUN apt-get update && \
     gfortran \
     gcc \
     libgmp-dev \
+    libegl1 \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/* 
 
@@ -38,7 +39,8 @@ USER $NB_UID
 RUN mamba install --quiet --yes \
 		-c conda-forge \
 		# jupyterlab-git \
-		mne mne-bids mne-nirs autoreject python-picard \
+        qt6-main \
+		mne mne-bids mnelab mne-nirs autoreject python-picard \
 		pyxdf pybv mne-qt-browser mayavi h5io h5py pymatreader \
 		nodejs nbconvert \
 		pyarrow pingouin \
@@ -67,9 +69,9 @@ RUN echo "install.packages(c('glmmLasso','ez', \
     dependencies=TRUE, repos='https://mirror.csclub.uwaterloo.ca/CRAN/')" | R --no-save
 USER $NB_UID
 
-RUN pip install mnelab  && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}" &&
+# RUN pip install --no-cache-dir --upgrade pip \
+#     && pip install --no-cache-dir -r requirements.txt && \
+#     fix-permissions "/home/${NB_USER}" 
 
 # RUN pip install git+git://github.com/autoreject/autoreject@master && \
 #     fix-permissions "${CONDA_DIR}" && \
