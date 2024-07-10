@@ -30,7 +30,7 @@ RUN apt-get update && \
 # 	&& apt install gh -y
 
 # Default to UTF-8 file.encoding
-ENV LANG C.UTF-8
+ENV LANG=C.UTF-8
 
 USER $NB_UID
 
@@ -44,12 +44,13 @@ RUN mamba install --quiet --yes \
 		pyxdf pybv mne-qt-browser mayavi h5io h5py pymatreader \
 		nodejs nbconvert \
 		pyarrow pingouin \
-		neurodsp pydicom dicom2nifti nibabel nilearn \
+		neurodsp pydicom dicom2nifti nibabel nilearn dcm2bids \
         r-essentials \
+        r-json \
 		r-ggthemes r-lattice r-corrplot \
 		r-lme4 r-mgcv \
 		r-car r-viridis \
-		r-emmeans  r-e1071 r-rann \
+		r-emmeans r-e1071 r-rann \
 		r-sjplot r-sjstats r-ggeffects \
 		r-party r-partykit r-rann \
 		r-reshape2 r-see r-arrow r-ranger \
@@ -68,6 +69,11 @@ RUN echo "install.packages(c('glmmLasso','ez', \
 	'itsadug', 'psycho'), \
     dependencies=TRUE, repos='https://mirror.csclub.uwaterloo.ca/CRAN/')" | R --no-save
 USER $NB_UID
+
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir rev_ai && \
+    fix-permissions "/home/${NB_USER}" 
+    
 
 # RUN pip install --no-cache-dir --upgrade pip \
 #     && pip install --no-cache-dir -r requirements.txt && \
