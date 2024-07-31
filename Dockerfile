@@ -11,9 +11,9 @@ RUN apt-get update && \
 	bzip2 \
     unzip \
     xz-utils\
-    ca-certificates p11-kit \
+    ca-certificates p11-kit \                    
     curl \
-    fonts-dejavu \
+    # fonts-dejavu \
     tzdata \
     gfortran \
     gcc \
@@ -35,18 +35,25 @@ ENV LANG=C.UTF-8
 USER $NB_UID
 
 # Conda packages
-# Sage conflicts with the latest jupyterhub, thus we must relax the pinning
 RUN mamba install --quiet --yes \
 		-c conda-forge \
 		# jupyterlab-git \
-        qt6-main \
-		mne mne-bids mnelab mne-nirs autoreject python-picard \
-		pyxdf pybv mne-qt-browser mayavi h5io h5py pymatreader \
+        jupyter-ai \
+        # qt6-main \
+		mne mne-bids mne-nirs autoreject python-picard \
+        # # mnelab \
+        #  mne-qt-browser \
+		pyxdf \
+        # pybv mayavi \
+        h5io h5py \
+        # pymatreader \
 		nodejs nbconvert \
 		pyarrow pingouin \
-		neurodsp pydicom dicom2nifti nibabel nilearn dcm2bids \
+        nilearn \
+		# neurodsp pydicom dicom2nifti nibabel nilearn \ 
+        # # dcm2bids \
         r-essentials \
-        r-json \
+        r-rjson \
 		r-ggthemes r-lattice r-corrplot \
 		r-lme4 r-mgcv \
 		r-car r-viridis \
@@ -55,7 +62,8 @@ RUN mamba install --quiet --yes \
 		r-party r-partykit r-rann \
 		r-reshape2 r-see r-arrow r-ranger \
 		r-stargazer r-brms \
-		r-languageserver && \
+		r-languageserver \
+        && \
 	mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
@@ -65,13 +73,13 @@ ENV CPATH=$CONDA_DIR/include
 # Install R packages not contained in Anaconda
 USER root
 RUN echo "install.packages(c('glmmLasso','ez', \
-    'likert', 'FactoMineR', 'stablelearner', 'githubinstall', \
 	'itsadug', 'psycho'), \
     dependencies=TRUE, repos='https://mirror.csclub.uwaterloo.ca/CRAN/')" | R --no-save
 USER $NB_UID
+    # 'likert', 'FactoMineR', 'stablelearner', 'githubinstall', \
 
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir rev_ai && \
+    && pip install --no-cache-dir mnelab rev_ai && \
     fix-permissions "/home/${NB_USER}" 
     
 
