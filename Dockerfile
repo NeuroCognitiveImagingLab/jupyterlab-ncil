@@ -41,7 +41,7 @@ RUN mamba install --quiet --yes \
         jupyter-ai \
         # qt6-main \
 		mne mne-bids mne-nirs autoreject python-picard \
-        # # mnelab \
+        mnelab>=1.0.0 \
         #  mne-qt-browser \
 		pyxdf \
         # pybv mayavi \
@@ -72,30 +72,15 @@ ENV CPATH=$CONDA_DIR/include
 
 # Install R packages not contained in Anaconda
 USER root
-RUN echo "install.packages(c('glmmLasso','ez', \
-	'itsadug', 'psycho'), \
+RUN echo "install.packages(c('glmmLasso','ez', 'itsadug', 'psycho'), \
     dependencies=TRUE, repos='https://mirror.csclub.uwaterloo.ca/CRAN/')" | R --no-save
 USER $NB_UID
-    # 'likert', 'FactoMineR', 'stablelearner', 'githubinstall', \
 
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir mnelab rev_ai && \
     fix-permissions "/home/${NB_USER}" 
-    
-
-# RUN pip install --no-cache-dir --upgrade pip \
-#     && pip install --no-cache-dir -r requirements.txt && \
-#     fix-permissions "/home/${NB_USER}" 
 
 # RUN pip install git+git://github.com/autoreject/autoreject@master && \
 #     fix-permissions "${CONDA_DIR}" && \
 #     fix-permissions "/home/${NB_USER}" && \
 #     ls -la /home
-
-# Add conda env hook
-# COPY ./conda-activate.sh /usr/local/bin/before-notebook.d/
-# COPY ./rebind-mount.sh /usr/local/bin/before-notebook.d/
-# COPY start.sh /usr/local/bin
-
-# from https://discourse.jupyter.org/t/cannot-use-sudo-have-root-access-using-jupyterhub-with-kubernetes/12548/7
-# RUN sed -i "s/auth requisite pam_deny.so//g" /etc/pam.d/su
