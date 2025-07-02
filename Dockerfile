@@ -7,7 +7,7 @@ USER root
 # APT packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-	# build-essential \
+	build-essential \
 	bzip2 \
     unzip \
     xz-utils\
@@ -52,6 +52,7 @@ RUN mamba install --quiet --yes \
         nilearn \
 		# neurodsp pydicom dicom2nifti nibabel nilearn \ 
         # # dcm2bids \
+        gcc_linux-64 gxx_linux-64 \
         r-essentials \
         r-rjson \
 		r-ggthemes r-lattice r-corrplot \
