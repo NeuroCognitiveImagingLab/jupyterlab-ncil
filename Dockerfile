@@ -41,7 +41,7 @@ RUN mamba install --quiet --yes \
         jupyter-ai \
         # qt6-main \
 		mne mne-bids mne-nirs autoreject python-picard \
-        mnelab \
+        # mnelab \
         mnelab>=1.0.0 \
         #  mne-qt-browser \
 		pyxdf \
