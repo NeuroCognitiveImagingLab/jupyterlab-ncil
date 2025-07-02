@@ -64,6 +64,7 @@ RUN mamba install --quiet --yes \
 		r-reshape2 r-see r-arrow r-ranger \
 		r-stargazer r-brms \
 		r-languageserver \
+        r-targets r-here r-devtools r-visnetwork r-conflicted r-ggbeestorm r-ggextra r-glmmtmb \
         && \
 	mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
@@ -76,6 +77,8 @@ USER root
 RUN echo "install.packages(c('glmmLasso','ez', 'itsadug', 'psycho'), \
     dependencies=TRUE, repos='https://mirror.csclub.uwaterloo.ca/CRAN/')" | R --no-save
 USER $NB_UID
+
+RUN echo "devtools::install_github('dustinfife/flexplot')" | R --no-save
 
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir mnelab rev_ai && \
