@@ -41,6 +41,7 @@ RUN mamba install --quiet --yes \
         jupyter-ai \
         # qt6-main \
 		mne mne-bids mne-nirs autoreject python-picard \
+        mnelab \
         mnelab>=1.0.0 \
         #  mne-qt-browser \
 		pyxdf \
@@ -81,7 +82,7 @@ USER $NB_UID
 RUN echo "devtools::install_github('dustinfife/flexplot')" | R --no-save
 
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir mnelab rev_ai && \
+    && pip install --no-cache-dir rev_ai && \
     fix-permissions "/home/${NB_USER}" 
 
 # RUN pip install git+git://github.com/autoreject/autoreject@master && \
