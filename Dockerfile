@@ -41,7 +41,6 @@ RUN mamba install --quiet --yes \
         jupyter-ai \
         # qt6-main \
 		mne mne-bids mne-nirs autoreject python-picard \
-        # mnelab \
         mnelab>=1.0.0 \
         #  mne-qt-browser \
 		pyxdf \
@@ -65,7 +64,7 @@ RUN mamba install --quiet --yes \
 		r-reshape2 r-see r-arrow r-ranger \
 		r-stargazer r-brms \
 		r-languageserver \
-        r-targets r-here r-devtools r-visnetwork r-conflicted r-ggbeestorm r-ggextra r-glmmtmb \
+        r-targets r-here r-devtools r-visnetwork r-conflicted r-beestorm r-ggextra r-glmmtmb \
         && \
 	mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
